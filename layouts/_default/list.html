@@ -1,0 +1,97 @@
+{{ define "main" }}
+  <section
+    id="Section"
+    class="relative min-h-[73vh] py-20 mt-20 text-black border-2 border-black bg-primary">
+    <div
+      class="absolute top-0 left-0 right-0 flex items-center px-4 py-2 font-light bg-black shadow-classic">
+      <span
+        class="flex items-center justify-center w-5 h-5 shadow-classic bg-primary">
+        <div class="w-3 h-3 border-2 border-black">
+          <div class="w-2 h-1 bg-black"></div>
+        </div>
+      </span>
+      <p class="mx-auto text-base text-white">{{ .Title }}</p>
+    </div>
+    <div class="container mx-auto mt-5">
+      <h1 class="mb-8 text-5xl font-bold text-center">{{ .Title }}</h1>
+
+      <!-- DaisyUI テーブル -->
+      <div class="mx-4 overflow-x-auto shadow-classic-in">
+        <table class="table w-full text-sm table-sm" id="blogTable">
+          <!-- テーブルヘッダー -->
+          <thead>
+            <tr>
+              <th
+                class="font-light text-black cursor-pointer"
+                onclick="sortTable(0)">
+                タイトル ⬍
+              </th>
+              <th
+                class="font-light text-black cursor-pointer"
+                onclick="sortTable(1)">
+                日付 ⬍
+              </th>
+            </tr>
+          </thead>
+
+          <!-- テーブルボディ -->
+          <tbody>
+            {{ range .Pages }}
+              {{ if not .Title }}{{ continue }}{{ end }}
+              <!-- タイトルがない場合は表示しない -->
+
+              <tr
+                class="p-4 transition bg-transparent hover:bg-gray-200"
+                onclick="window.location='{{ .RelPermalink }}';"
+                style="cursor: pointer">
+                <!-- タイトル -->
+                <td class="font-light text-black">{{ .Title }}</td>
+
+                <!-- 日付 -->
+                <td
+                  class="font-light {{ if not .Date }}
+                    text-transparent
+                  {{ end }}">
+                  {{ if .Date }}
+                    {{ .Date.Format "2006-01-02" }}
+                  {{ else }}
+                    {{ now.Format "2006-01-02" }}
+                    <!-- 今日の日付を表示 -->
+                  {{ end }}
+                </td>
+              </tr>
+            {{ end }}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- クライアントサイドのソート機能 -->
+  <script>
+    let sortDirections = {};
+
+    function sortTable(columnIndex) {
+      const table = document.getElementById("blogTable");
+      const tbody = table.querySelector("tbody");
+      const rows = Array.from(tbody.rows);
+      const isNumeric = columnIndex === 1;
+
+      sortDirections[columnIndex] = !sortDirections[columnIndex];
+
+      const direction = sortDirections[columnIndex] ? 1 : -1;
+
+      const sortedRows = rows.sort((a, b) => {
+        const aText = a.cells[columnIndex].innerText.trim();
+        const bText = b.cells[columnIndex].innerText.trim();
+
+        return isNumeric
+          ? (new Date(aText) - new Date(bText)) * direction
+          : aText.localeCompare(bText) * direction;
+      });
+
+      tbody.innerHTML = "";
+      sortedRows.forEach((row) => tbody.appendChild(row));
+    }
+  </script>
+{{ end }}

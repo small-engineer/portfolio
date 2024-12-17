@@ -1,0 +1,28 @@
+{
+  "name": "small-engineer-net",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build:js": "esbuild assets/js/*.js --bundle --outdir=static/js",
+    "dev:js": "esbuild assets/js/*.js --bundle --outdir=static/js --watch",
+    "build": "yarn build:css && yarn build:js",
+    "dev:server": "hugo server -D --watch --disableFastRender",
+    "build:css": "tailwindcss -i ./assets/css/style.css -o static/css/style.css",
+    "dev": "concurrently \"yarn dev:server\" \"tailwindcss -i ./assets/css/style.css -o static/css/style.css --watch\" \"yarn dev:js\""
+  },
+  "license": "MIT",
+  "dependencies": {
+    "autoprefixer": "^10.4.20",
+    "daisyui": "^4.12.22",
+    "gsap": "^3.12.5",
+    "postcss": "^8.4.49",
+    "prettier": "^3.4.2",
+    "tailwindcss": "^3.4.16",
+    "three": "^0.171.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "esbuild": "^0.24.0",
+    "prettier-plugin-go-template": "^0.0.15"
+  }
+}

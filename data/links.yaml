@@ -1,0 +1,114 @@
+links:
+  # Personal Links
+  - title: "合同会社 Kalytero"
+    category: "所属"
+    description: "ワイの会社"
+    url: "https://www.kalytero.ne.jp/"
+
+  - title: "42 Tokyo"
+    category: "所属"
+    description: "革新的かつ日本一のエンジニア養成校"
+    url: "https://42tokyo.jp/"
+
+  - title: "Pemdemy"
+    category: "所属"
+    description: "府中を拠点とするSTEAM教育のNPO"
+    url: "https://pendemy.com/"
+
+  - title: "情報経営イノベーション専門職大学"
+    category: "所属"
+    description: "情報経営分野の専門職大学"
+    url: "https://www.i-u.ac.jp/"
+
+  - title: "iU 学友会"
+    category: "所属"
+    description: "情報経営イノベーション専門職大学の学友会サイト"
+    url: "https://i-u.io/"
+
+  # Summary Sites
+  - title: "とほほのＷＷＷ入門"
+    category: "便利サイト"
+    description: "とにかくまとまってるサイト"
+    url: "https://www.tohoho-web.com/"
+
+  - title: "Piyopiyo Create Service"
+    category: "便利サイト"
+    description: "ピヨピヨ"
+    url: "https://i-3-i.info/"
+
+  - title: "UNIXとかBSDの昔のコード見えるサイト"
+    category: "便利サイト"
+    description: "UNIXおよびBSDの古いソースコードを閲覧できるサイト"
+    url: "https://www.tuhs.org/cgi-bin/utree.pl"
+
+  - title: "ChromiumのソースコードのCライブラリ"
+    category: "便利サイト"
+    description: "ChromiumプロジェクトのCライブラリのソースコード"
+    url: "https://chromium.googlesource.com/native_client/nacl-newlib/+/master-backup/newlib/libc"
+
+  - title: "LinuxのソースコードのCライブラリ"
+    category: "便利サイト"
+    description: "LinuxカーネルのCライブラリソースコード"
+    url: "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/lib/"
+
+  - title: "minlibcのソースコードのCライブラリ"
+    category: "便利サイト"
+    description: "軽量なCライブラリのソースコード"
+    url: "https://github.com/GaloisInc/minlibc/blob/master/"
+
+  - title: "OP-TEEのソースコードのCライブラリ"
+    category: "便利サイト"
+    description: "Trusted Execution Environment向けのCライブラリ"
+    url: "https://github.com/OP-TEE/optee_os/blob/master/lib/libutils/isoc/"
+
+  - title: "Bain & 30 Elements of Value"
+    category: "ビジネス"
+    description: "Bain & CompanyのThe 30 Elements of Consumer"
+    url: "https://www.bain.com/ja/consulting-services/customer-strategy-marketing/elements-of-value/"
+
+  # Akiba Links
+  - title: "愛三電気"
+    category: "秋葉原"
+    description: "電子部品ならここ ないものはない"
+    url: "https://www.aisan.co.jp/"
+
+  - title: "ショップインバース"
+    category: "秋葉原"
+    description: "部品買うならここ"
+    url: "https://www.inversenet.co.jp/shop/"
+
+  - title: "PCコンフル秋葉原本店"
+    category: "秋葉原"
+    description: "中古PCとHDD買うならここ"
+    url: "https://pc-comfull.com/pccomfull_akibahara/"
+
+  - title: "秋葉原ガチャポン会館"
+    category: "秋葉原"
+    description: "秋葉原の有名なガチャポン専門店"
+    url: "https://x.com/akibagacha"
+
+  - title: "秋葉原最終処分場"
+    category: "秋葉原"
+    description: "ジャンク品や中古パーツを扱うショップ"
+    url: "https://junk.co.jp/"
+
+  - title: "牛丼専門サンボ"
+    category: "飲食店"
+    description: "秋葉原の牛丼専門店"
+    url: "https://x.com/ra5uzhfotxbpaxo"
+
+  # Company Links
+  - title: "まどそふと"
+    category: "エロゲ"
+    description: "ハミダシクリエイティブは神ゲー"
+    url: "https://madosoft.net/"
+
+  - title: "ゆずソフト"
+    category: "エロゲ"
+    description: "喫茶ステラは神ゲー"
+    url: "https://www.yuzu-soft.com/"
+
+  - title: "BAIN & COMPANY"
+    category: "コンサル"
+    description: "The 30 Elements of Consumerの会社"
+    url: "https://www.bain.com/ja/"

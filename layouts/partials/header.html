@@ -1,0 +1,126 @@
+<header
+  class="fixed top-0 left-0 z-50 w-full shadow-sharp bg-primary bg-opacity-90 backdrop-blur-md">
+  <div class="container justify-between mx-auto navbar">
+    <!-- Start: Hamburger Menu for Mobile -->
+    <div class="navbar-start lg:hidden">
+      <div class="dropdown">
+        <label tabindex="0" class="btn btn-ghost btn-circle">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-6 h-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="Black">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </label>
+        <ul
+          tabindex="0"
+          class="menu menu-sm dropdown-content p-0 bg-primary rounded-none z-[1] mt-1 w-52 shadow-classic">
+          <li class="bg-black shadow-classic"><a>navigation</a></li>
+          {{ range .Site.Data.header.links }}
+            <li class="text-black shadow-classic">
+              <a href="{{ .href }}" class="no-animation">{{ .name }}</a>
+            </li>
+          {{ end }}
+        </ul>
+      </div>
+    </div>
+    <!-- End: Hamburger Menu for Mobile -->
+
+    <!-- Logo -->
+    <div class="flex items-center navbar-center">
+      {{ with .Site.Data.header.title.image }}
+        <a href="/" class="flex items-center">
+          <img
+            src="{{ . }}"
+            alt="{{ $.Site.Data.header.title.text }}"
+            class="h-10" />
+        </a>
+      {{ else }}
+        <a
+          href="/"
+          class="text-xl font-bold tracking-wider normal-case btn btn-ghost">
+          {{ .Site.Data.header.title.text }}
+        </a>
+      {{ end }}
+    </div>
+
+    <!-- Navigation Links -->
+    <div class="hidden navbar-end lg:flex">
+      <ul class="space-x-1 text-neutral menu menu-horizontal">
+        <!-- ドロップダウンメニュー for blog -->
+        <li class="relative dropdown dropdown-hover">
+          <label
+            tabindex="0"
+            class="p-2 font-light text-black cursor-pointer btn btn-ghost no-hover-color">
+            ブログ
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="inline-block w-4 h-4 ml-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7" />
+            </svg>
+          </label>
+          <ul
+            tabindex="0"
+            class="dropdown-content p-0 bg-primary rounded-none z-[1] mt-1 w-52 shadow-classic">
+            <li class="text-white bg-black shadow-classic">
+              <a>blog</a>
+            </li>
+            {{ range .Site.Data.header.links }}
+              {{ if eq .category "blog" }}
+                <li>
+                  <a
+                    href="{{ .href }}"
+                    class="p-2 font-light rounded-none hover:bg-gray-300 shadow-classic">
+                    {{ .name }}
+                  </a>
+                </li>
+              {{ end }}
+            {{ end }}
+          </ul>
+        </li>
+
+        <!-- 通常のリンク -->
+        {{ range .Site.Data.header.links }}
+          {{ if ne .category "blog" }}
+            <li>
+              {{ if .button }}
+                <a
+                  href="{{ .href }}"
+                  class="p-3 font-light text-black border-none rounded-none btn btn-neutral bg-primary shadow-classic hover:bg-primary-dark hover:shadow-classic-dark">
+                  {{ .name }}
+                </a>
+              {{ else }}
+                <a
+                  href="{{ .href }}"
+                  class="relative p-2 font-light text-black btn btn-ghost no-hover-color">
+                  {{ .name }}
+                </a>
+              {{ end }}
+            </li>
+          {{ end }}
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+</header>
+
+<script src="/js/header.js" defer></script>
+<style>
+  .no-hover-color:hover {
+    background-color: transparent !important;
+    color: inherit !important;
+  }
+</style>

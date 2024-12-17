@@ -1,0 +1,7 @@
+baseURL = 'https://www.small-engineer.net'
+languageCode = 'ja'
+title = 'Small Engineer Net'
+
+[params]
+  defaultImage = "/images/about-image.webp"
+  defaultDescription = "Small Engineer Net"

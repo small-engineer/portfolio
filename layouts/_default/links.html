@@ -1,0 +1,92 @@
+{{ define "main" }}
+  <section
+    id="Section"
+    class="min-h-[73vh] relative py-20 mt-20 text-black border-2 border-black bg-primary">
+    <div
+      class="absolute top-0 left-0 right-0 flex items-center px-4 py-2 font-light bg-black shadow-classic">
+      <p class="mx-auto text-base text-white">{{ .Title }}</p>
+    </div>
+
+    <div class="container mx-auto mt-5">
+      <h1 class="mb-8 text-5xl font-bold text-center">{{ .Title }}</h1>
+
+      <!-- DaisyUI テーブル -->
+      <div class="mx-4 overflow-x-auto shadow-classic-in">
+        <table class="table w-full text-sm table-sm" id="linksTable">
+          <thead>
+            <tr>
+              <th
+                class="font-light text-black cursor-pointer"
+                onclick="sortTable(0)">
+                タイトル ⬍
+              </th>
+              <th
+                class="font-light text-black cursor-pointer hide-on-sp"
+                onclick="sortTable(1)">
+                カテゴリ ⬍
+              </th>
+              <th class="font-light text-black hide-on-sp">説明</th>
+              <th
+                class="font-light text-black cursor-pointer"
+                onclick="sortTable(3)">
+                ドメイン ⬍
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {{ range .Site.Data.links.links }}
+              <tr
+                class="p-4 transition bg-transparent hover:bg-gray-200"
+                onclick="window.open('{{ .url }}', '_blank');"
+                style="cursor: pointer">
+                <!-- タイトル -->
+                <td class="font-light text-black">{{ .title }}</td>
+                <!-- カテゴリ -->
+                <td class="font-light hide-on-sp">
+                  {{ .category | default "-" }}
+                </td>
+                <!-- 説明 -->
+                <td class="font-light hide-on-sp">
+                  {{ .description | default "-" }}
+                </td>
+                <!-- ドメイン -->
+                <td class="font-light">
+                  {{ $url := .url }}
+                  {{ with urls.Parse $url }}{{ .Host }}{{ else }}-{{ end }}
+                </td>
+              </tr>
+            {{ end }}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    let sortDirections = {};
+    function sortTable(columnIndex) {
+      const table = document.getElementById("linksTable");
+      const tbody = table.querySelector("tbody");
+      const rows = Array.from(tbody.rows);
+      sortDirections[columnIndex] = !sortDirections[columnIndex];
+      const direction = sortDirections[columnIndex] ? 1 : -1;
+
+      const sortedRows = rows.sort((a, b) => {
+        const aText = a.cells[columnIndex].innerText.trim();
+        const bText = b.cells[columnIndex].innerText.trim();
+        return aText.localeCompare(bText) * direction;
+      });
+
+      tbody.innerHTML = "";
+      sortedRows.forEach((row) => tbody.appendChild(row));
+    }
+  </script>
+
+  <style>
+    @media (max-width: 640px) {
+      .hide-on-sp {
+        display: none;
+      }
+    }
+  </style>
+{{ end }}

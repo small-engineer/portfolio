@@ -1,0 +1,115 @@
+{{ define "main" }}
+  <!-- Hero Section -->
+  <section
+    class="flex items-center justify-center min-h-screen hero bg-base-100 text-primary-content">
+    <div class="px-4 text-center">
+      <h1 class="text-6xl font-bold opacity-0 animate-fade-in" id="hero-title">
+        Crafting Creative Solutions
+      </h1>
+      <p
+        class="mt-6 text-lg opacity-0 animate-fade-in-delay"
+        id="hero-description">
+        Scroll down to explore my projects and expertise.
+      </p>
+      {{ partial "button.html" (dict "label" "Click Me" "href" "/example") }}
+
+      <a href="#portfolio" class="mt-10 btn btn-secondary">View My Work</a>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="py-20 text-gray-900 bg-primary about">
+    <div class="container mx-auto text-center">
+      <h2 class="text-4xl font-bold opacity-0 animate-fade-in" id="about-title">
+        About Me
+      </h2>
+
+      <p
+        class="max-w-3xl mx-auto mt-4 text-lg opacity-0 animate-fade-in-delay"
+        id="about-description">
+        I am a passionate developer with a focus on building beautiful,
+        functional, and modern web applications. With expertise in frontend and
+        backend technologies, I love solving complex problems and turning ideas
+        into reality.
+      </p>
+      <div class="flex justify-center mt-10 space-x-4">
+        <img
+          src="/img/profile.jpg"
+          alt="My photo"
+          class="w-40 h-40 rounded-full shadow-lg opacity-0 animate-fade-in" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section
+    id="portfolio"
+    class="py-20 portfolio bg-base-100 text-primary-content">
+    <div class="container mx-auto text-center">
+      <h2
+        class="text-4xl font-bold opacity-0 animate-fade-in"
+        id="portfolio-title">
+        My Projects
+      </h2>
+      <div class="grid grid-cols-1 gap-10 mt-10 md:grid-cols-2 lg:grid-cols-3">
+        <div
+          class="p-5 text-gray-900 bg-white rounded-lg shadow-lg opacity-0 portfolio-item animate-fade-in"
+          data-animate="fade-in">
+          <h3 class="text-2xl font-semibold">E-Commerce Platform</h3>
+          <p class="mt-2">
+            Built a scalable online store with a modern UI/UX and secure payment
+            systems.
+          </p>
+          <a href="#" class="block mt-3 underline text-secondary">
+            View Project
+          </a>
+        </div>
+        <div
+          class="p-5 text-gray-900 bg-white rounded-lg shadow-lg opacity-0 portfolio-item animate-fade-in"
+          data-animate="fade-in">
+          <h3 class="text-2xl font-semibold">Portfolio Website</h3>
+          <p class="mt-2">
+            Designed and developed a portfolio site with advanced animations and
+            interactions.
+          </p>
+          <a href="#" class="block mt-3 underline text-secondary">
+            View Project
+          </a>
+        </div>
+        <div
+          class="p-5 text-gray-900 bg-white rounded-lg shadow-lg opacity-0 portfolio-item animate-fade-in"
+          data-animate="fade-in">
+          <h3 class="text-2xl font-semibold">Data Visualization Dashboard</h3>
+          <p class="mt-2">
+            Created a dashboard with interactive charts and real-time data
+            updates.
+          </p>
+          <a href="#" class="block mt-3 underline text-secondary">
+            View Project
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="py-20 contact bg-primary text-secondary-content">
+    <div class="container mx-auto text-center">
+      <h2
+        class="text-4xl font-bold opacity-0 animate-fade-in"
+        id="contact-title">
+        Contact Me
+      </h2>
+      <p
+        class="max-w-3xl mx-auto mt-4 text-lg opacity-0 animate-fade-in-delay"
+        id="contact-description">
+        Ready to bring your ideas to life? Feel free to reach out for
+        collaboration or inquiries.
+      </p>
+      <a href="mailto:your.email@example.com" class="mt-10 btn btn-primary">
+        Send an Email
+      </a>
+    </div>
+  </section>
+  <script src="/js/script.js" defer></script>
+{{ end }}

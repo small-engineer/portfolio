@@ -1,0 +1,23 @@
+title:
+  text: "Small-Engineer-Net"
+  image: "/images/logo.webp"
+links:
+  - name: "テックブログ"
+    href: "/tech-blog"
+    category: "blog"
+  - name: "日常ブログ"
+    href: "/general-blog"
+    category: "blog"
+  - name: "カテゴリー"
+    href: "/categories"
+    category: "blog"
+  - name: "タグ"
+    href: "/tags"
+    category: "blog"
+  - name: "プロフ"
+    href: "/about"
+  - name: "リンク集"
+    href: "/links"
+  - name: "ショップ"
+    href: "https://suzuri.jp/small-engineer-shop"
+    button: true
