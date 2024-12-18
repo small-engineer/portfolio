@@ -27,7 +27,8 @@
 
 
         <section
-          class="{{ $widthClass }} px-4 py-10 relative text-gray-900 border-2 border-black bg-primary about-section">
+          class="{{ $widthClass }} px-4 py-10 relative text-gray-900 border-2 border-black bg-primary about-section"
+          data-index="{{ $index }}">
           <div
             class="absolute top-0 left-0 right-0 flex items-center px-4 py-2 bg-primary shadow-classic">
             <span
@@ -47,4 +48,5 @@
       {{ end }}
     </div>
   </article>
+  <script src="/js/about.js" defer></script>
 {{ end }}
