@@ -1,0 +1,56 @@
+{{ define "main" }}
+  <article class="mx-auto mt-20 prose lg:prose-xl">
+    {{ $sections := split .Content "<hr>" }}
+    {{ range $index, $section := $sections }}
+      {{ $html := $section | safeHTML }}
+      {{ $key := printf "section-%d.html" $index }}
+      {{ $doc := resources.FromString $key $html }}
+
+      {{ $heading := "" }}
+      {{ with findRE "<h[12][^>]*>(.*?)</h[12]>" $html }}
+        {{ $heading = index . 0 | plainify }}
+      {{ end }}
+      <section
+        id="Section-{{ add $index 1 }}"
+        class="paged-section min-h-[73vh] relative py-20 text-gray-900 border-2 border-black bg-primary about-section"
+        style="display: none;">
+        <div class="mx-5">
+          <div
+            class="absolute top-0 left-0 right-0 flex items-center px-4 py-2 bg-black shadow-classic">
+            <span
+              class="flex items-center justify-center w-5 h-5 bg-primary shadow-classic">
+              <div class="w-3 h-3 border-2 border-black">
+                <div class="w-2 h-1 bg-black"></div>
+              </div>
+            </span>
+            <p class="mx-auto text-base text-white">
+              {{ $heading }}
+            </p>
+          </div>
+          <div class="container p-4 mx-auto mt-5 bg-white shadow-classic-in">
+            {{ $section | safeHTML }}
+          </div>
+
+          <div
+            class="flex items-center justify-between p-0 mx-auto mt-10 lg:p-4">
+            {{ if gt $index 0 }}
+              <button
+                class="px-4 py-2 text-black bg-primary prev-button shadow-classic hover:shadow-classic-dark">
+                戻る
+              </button>
+            {{ else }}
+              <span class="flex-1"></span>
+            {{ end }}
+            {{ if lt (add $index 1) (len $sections) }}
+              <button
+                class="px-4 py-2 text-black bg-primary next-button shadow-classic hover:shadow-classic-dark">
+                次へ
+              </button>
+            {{ end }}
+          </div>
+        </div>
+      </section>
+      <script src="/js/paging.js" defer></script>
+    {{ end }}
+  </article>
+{{ end }}
