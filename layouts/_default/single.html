@@ -11,10 +11,14 @@
             <div class="w-2 h-1 bg-black"></div>
           </div>
         </span>
-        <p class="mx-auto text-base text-white">{{ .Title }}</p>
+        <p class="mx-auto text-base text-white">
+          {{ index (split .Title " | ") 0 }}
+        </p>
       </div>
       <div class="container p-4 mx-auto mt-5 bg-white shadow-classic-in">
-        <h1 class="mb-4 text-4xl font-bold">{{ .Title }}</h1>
+        <h1 class="mb-4 text-4xl font-bold">
+          {{ index (split .Title " | ") 0 }}
+        </h1>
 
         <!-- カテゴリ表示 -->
         <p class="mb-2 text-sm text-gray-500">

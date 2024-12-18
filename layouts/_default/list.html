@@ -10,10 +10,14 @@
           <div class="w-2 h-1 bg-black"></div>
         </div>
       </span>
-      <p class="mx-auto text-base text-white">{{ .Title }}</p>
+      <p class="mx-auto text-base text-white">
+        {{ index (split .Title " | ") 0 }}
+      </p>
     </div>
     <div class="container mx-auto mt-5">
-      <h1 class="mb-8 text-5xl font-bold text-center">{{ .Title }}</h1>
+      <h1 class="mb-8 text-5xl font-bold text-center">
+        {{ index (split .Title " | ") 0 }}
+      </h1>
 
       <!-- DaisyUI テーブル -->
       <div class="mx-4 overflow-x-auto shadow-classic-in">

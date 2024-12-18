@@ -1,7 +1,7 @@
 {{ define "main" }}
   <section
     id="Section"
-    class="min-h-[73vh] relative py-20 mt-20 text-black border-2 border-black bg-primary about-section">
+    class="min-h-[73vh] relative py-20 mt-20 text-black border-2 border-black bg-primary">
     <div
       class="absolute top-0 left-0 right-0 flex items-center px-4 py-2 font-light bg-black shadow-classic">
       <span
@@ -10,10 +10,33 @@
           <div class="w-2 h-1 bg-black"></div>
         </div>
       </span>
-      <p class="mx-auto text-base text-white">{{ .Title }}</p>
+      <p class="mx-auto text-base text-white">
+        {{ index (split .Title " | ") 0 }}
+      </p>
     </div>
     <div class="container mx-auto mt-5">
-      <h1 class="mb-8 text-5xl font-bold text-center">{{ .Title }}</h1>
+      <h1 class="mb-8 text-5xl font-bold text-center">
+        {{ index (split .Title " | ") 0 }}
+      </h1>
+
+      <!-- 検索窓 -->
+      <div class="mx-4 mb-4">
+        <input
+          id="searchInput"
+          type="text"
+          class="w-full border border-black rounded-none input input-bordered shadow-classic-in focus:shadow-classic-in focus:border-none focus:outline-none"
+          placeholder="検索キーワードを入力してください"
+          oninput="filterTable()" />
+      </div>
+
+      <style>
+        /* 必要に応じてカスタムスタイルを定義 */
+        input:focus {
+          transition:
+            box-shadow 0.3s,
+            border-color 0.3s;
+        }
+      </style>
 
       <!-- DaisyUI テーブル -->
       <div class="mx-4 overflow-x-auto shadow-classic-in">
@@ -49,7 +72,14 @@
               <tr
                 class="p-4 transition bg-transparent hover:bg-gray-200"
                 onclick="window.location='{{ .RelPermalink }}';"
-                style="cursor: pointer">
+                style="cursor: pointer"
+                data-search="{{ .Title | lower }} {{ with .Params.categories }}
+                  {{ delimit . ", " | lower }}
+                {{ end }} {{ with .Params.tags }}
+                  {{ delimit . ", " | lower }}
+                {{ end }} {{ with .Params.description }}
+                  {{ . | lower }}
+                {{ end }}">
                 <!-- タイトル -->
                 <td class="font-light text-black">{{ .Title }}</td>
 
@@ -102,23 +132,34 @@
       const direction = sortDirections[columnIndex] ? 1 : -1;
 
       const sortedRows = rows.sort((a, b) => {
-        const aText = a.cells[columnIndex].innerText.trim();
-        const bText = b.cells[columnIndex].innerText.trim();
+        const aText = a.cells[columnIndex].innerText.trim().toLowerCase();
+        const bText = b.cells[columnIndex].innerText.trim().toLowerCase();
 
         return isNumeric
           ? (new Date(aText) - new Date(bText)) * direction
-          : aText.localeCompare(bText) * direction;
+          : aText.localeCompare(bText, undefined, { sensitivity: "base" }) *
+              direction;
       });
 
       tbody.innerHTML = "";
       sortedRows.forEach((row) => tbody.appendChild(row));
     }
-  </script>
-  <style>
-    @media (max-width: 640px) {
-      .hide-on-sp {
-        display: none;
-      }
+
+    function filterTable() {
+      const searchInput = document
+        .getElementById("searchInput")
+        .value.toLowerCase();
+      const table = document.getElementById("blogTable");
+      const rows = Array.from(table.querySelectorAll("tbody tr"));
+
+      rows.forEach((row) => {
+        const searchData = row.getAttribute("data-search");
+        if (searchData.toLowerCase().includes(searchInput)) {
+          row.style.display = "";
+        } else {
+          row.style.display = "none";
+        }
+      });
     }
-  </style>
+  </script>
 {{ end }}

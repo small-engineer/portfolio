@@ -16,6 +16,8 @@ links:
     category: "blog"
   - name: "プロフ"
     href: "/about"
+  - name: "ポートフォリオ"
+    href: "/portfolio"
   - name: "リンク集"
     href: "/links"
   - name: "ショップ"
