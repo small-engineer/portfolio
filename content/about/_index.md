@@ -12,10 +12,11 @@ layout: "about"
 - **居住地**: 東京都
 - **職業**: 大学生
 - **メール**: [wakamiya626@gmail.com](mailto:wakamiya626@gmail.com)
-- **SNS**:
-  - [Twitter](https://twitter.com/WakamiyaYuma)
-  - [GitHub](https://github.com/small-engineer)
-  - [Facebook](https://www.facebook.com/yuma.wakamiya)
+
+{{< Social_buttons twitter="https://twitter.com/WakamiyaYuma"
+acebook="https://www.facebook.com/yuma.wakamiya"
+github="https://github.com/small-engineer"
+>}}
 
 ---
 

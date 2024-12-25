@@ -21,11 +21,10 @@ document.addEventListener("DOMContentLoaded", function () {
       width: "100%",
       ease: "power2.out",
       onComplete: () => {
-        // 上から下にスライドしながら消えるアニメーション
         gsap.to(overlay, {
-          duration: 0.7, // アニメーション時間
+          duration: 0.7,
           opacity: 0,
-          y: "100%", // 下にスライドする
+          y: "100%",
           ease: "power2.inOut",
           onComplete: () => {
             overlay.style.display = "none";
