@@ -1,81 +1,40 @@
 ---
-title: "自己紹介 | Small Engineer Net"
-description: "Small Engineer Netの管理人の自己紹介ページです。"
+title: "ポートフォリオ | Small Engineer Net"
+description: "Small Engineer Netの管理人のポートフォリオページです。"
 layout: "portfolio"
 ---
 
-# 若宮佑真 - プロフィール
-
-## 基本情報
-
-- **名前**: 若宮佑真
-- **居住地**: 東京都
-- **職業**: その日暮らし
-- **メール**: [wakamiya626@gmail.com](mailto:wakamiya626@gmail.com)
-- **SNS**:
-  - [Twitter](https://twitter.com/WakamiyaYuma)
-  - [GitHub](https://github.com/small-engineer)
-  - [Facebook](https://www.facebook.com/yuma.wakamiya)
+# 若宮佑真 - ポートフォリオ
 
 ---
 
-## 趣味
+## Small Engineer Net
 
-アニメやゲームが好きで、時間を見つけて楽しんでいます。
+![Small Engineer Net サムネイル](/images/Portfolio/small-engineer-net.webp)
 
----
-
-## スキル
-
-- **AWS**
-- **Next.js**
-- **Express.js**
-- **Linux** (Debian, Ubuntu)
+- **サイト名**: Small Engineer Net
+- **URL**: [https://www.small-engineer.net](https://www.small-engineer.net)
+- **制作期間**: 2024年11月〜
+- **制作環境**: Hugo, Tailwind CSS, Cloudflare Pages
 
 ---
 
-![プロフィール画像](/images/profile.webp)
+## 合同会社Kalytero ホームページ
 
-## プロフィール画像
+![合同会社Kalytero サムネイル](/images/Portfolio/kalytero.webp)
 
----
-
-# 今までやってきたこと
-
-- **2022年〜**: Pendemy デジタル教育ラボ
-- **2023年3月**: N高等学校 卒業
-- **2023年4月**: 情報経営イノベーション専門職大学 入学
-- **2023年11月**: 合同会社Kalytero 設立
-- **2024年10月**: 42 Tokyo 入学
+- **サイト名**: 合同会社Kalytero
+- **URL**: [https://kalytero.ne.jp](https://kalytero.ne.jp)
+- **制作期間**: 2023年10月〜
+- **制作環境**: Next.js, Tailwind CSS, Cloudflare Pages
 
 ---
 
-## 好きな言語
+## 42 Tokyo 起業部 ポータルサイト
 
-- JavaScript
-- TypeScript
-- C言語
-- Perl
-- Lua
-- GO言語
+![42 Tokyo 起業部 サムネイル](/images/Portfolio/42entre.webp)
 
----
-
-## 所属企業
-
-- **会社名**: 合同会社Kalytero
-- **役職**: COO
-- **業界**: 情報通信産業
-- **所在地**: 東京都墨田区
-- **会社HP**: [https://kalytero.ne.jp](https://www.kalytero.ne.jp)
-
----
-
-# これからやりたいこと・ビジョン
-
-高校時代には、オンライン家庭教師の会社でWEBマーケティングを手がけたり、NPOでSTEAM教育に携わるなど、教育に関連する活動を行ってきました。  
-自己肯定感が低かった私にとって、こうした活動は自分の存在意義を見つけるためのものでした。
-
-その後、Kalyteroでの活動を通じてプログラミングに触れ、ITを活用して社会課題を解決することの重要性を実感しました。これが現在の自分の目標です。
-
-今後は、42Tokyoで低レイヤーからハイレイヤーまで幅広い技術を学びながら、社会課題の解決に取り組んでいきたいと考えています。Kalyteroや他の場でITの知識を深め、貢献していくことが私のビジョンです。
+- **サイト名**: 42 Tokyo 起業部 ポータルサイト
+- **URL**: [https://entrepreneur.42tokyo.jp/](https://entrepreneur.42tokyo.jp/)
+- **制作期間**: 2024年10月〜
+- **制作環境**: Hugo, Tailwind CSS, Cloudflare Pages

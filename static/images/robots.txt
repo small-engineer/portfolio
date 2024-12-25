@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://www.small-engineer.net
-
-# Sitemaps
-Sitemap: https://www.small-engineer.net/sitemap.xml
