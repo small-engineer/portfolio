@@ -15,7 +15,7 @@ layout: "about"
 
 {{< Social_buttons twitter="https://twitter.com/WakamiyaYuma"
 acebook="https://www.facebook.com/yuma.wakamiya"
-github="https://github.com/small-engineer"
+github="https://github.com/small-engineer" 
 >}}
 
 ---
