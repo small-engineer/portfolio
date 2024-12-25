@@ -13,9 +13,10 @@ layout: "about"
 - **職業**: 大学生
 - **メール**: [wakamiya626@gmail.com](mailto:wakamiya626@gmail.com)
 
-{{< Social_buttons twitter="https://twitter.com/WakamiyaYuma"
-acebook="https://www.facebook.com/yuma.wakamiya"
-github="https://github.com/small-engineer" 
+{{< Social_buttons
+twitter="https://twitter.com/WakamiyaYuma"
+facebook="https://www.facebook.com/yuma.wakamiya"
+github="https://github.com/small-engineer"
 >}}
 
 ---
