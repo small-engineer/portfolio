@@ -10,7 +10,7 @@ layout: "portfolio"
 
 ## Small Engineer Net
 
-![Small Engineer Net サムネイル](/images/Portfolio/small-engineer.webp)
+![Small Engineer Net サムネイル](/images/Portfolio/small-engineer-net.webp)
 
 - **サイト名**: Small Engineer Net
 - **URL**: [https://www.small-engineer.net](https://www.small-engineer.net)
