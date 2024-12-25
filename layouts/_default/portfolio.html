@@ -12,9 +12,9 @@
       {{ end }}
       <section
         id="Section-{{ add $index 1 }}"
-        class="paged-section min-h-[73vh] relative py-20 text-gray-900 border-2 border-black bg-primary about-section"
+        class="paged-section min-h-[73vh] relative pt-10 pb-5 text-gray-900 border-2 border-black bg-primary about-section"
         style="display: none;">
-        <div class="mx-5">
+        <div class="mx-5 ">
           <div
             class="absolute top-0 left-0 right-0 flex items-center px-4 py-2 bg-black shadow-classic">
             <span
@@ -23,16 +23,16 @@
                 <div class="w-2 h-1 bg-black"></div>
               </div>
             </span>
-            <p class="mx-auto text-base text-white">
+            <p class="mx-auto text-base text-white ">
               {{ $heading }}
             </p>
           </div>
-          <div class="container p-4 mx-auto mt-5 bg-white shadow-classic-in">
+          <div
+            class="container h-auto p-4 mx-auto mt-5 bg-white shadow-classic-in min-h-[50vh]">
             {{ $section | safeHTML }}
           </div>
-
           <div
-            class="flex items-center justify-between p-0 mx-auto mt-10 lg:p-4">
+            class="flex items-center justify-between p-0 mx-auto mt-3 lg:p-4">
             {{ if gt $index 0 }}
               <button
                 class="px-4 py-2 text-black bg-primary prev-button shadow-classic hover:shadow-classic-dark">
@@ -53,4 +53,11 @@
       <script src="/js/paging.js" defer></script>
     {{ end }}
   </article>
+  <style>
+    .about-section img {
+      max-height: 400px;
+      width: auto;
+      object-fit: contain;
+    }
+  </style>
 {{ end }}

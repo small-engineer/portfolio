@@ -1,7 +1,7 @@
 ---
 title: "自己紹介 | Small Engineer Net"
 description: "Small Engineer Netの管理人の自己紹介ページです。"
-layout: "about"
+layout: "portfolio"
 ---
 
 # 若宮佑真 - プロフィール
@@ -10,7 +10,7 @@ layout: "about"
 
 - **名前**: 若宮佑真
 - **居住地**: 東京都
-- **職業**: 大学生
+- **職業**: その日暮らし
 - **メール**: [wakamiya626@gmail.com](mailto:wakamiya626@gmail.com)
 - **SNS**:
   - [Twitter](https://twitter.com/WakamiyaYuma)
