@@ -1,0 +1,353 @@
+<!-- bouncing-ball.html -->
+<div id="bouncing-ball-container"></div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js"></script>
+
+<script>
+  (function () {
+    "use strict";
+
+    let container = null;
+    let renderer, scene, camera, world;
+    let sphereMesh, sphereBody;
+    let walls = [];
+    let requestID;
+    let defaultMaterial;
+
+    // クリーンアップ用（例）
+    function destroy() {
+      if (requestID) {
+        cancelAnimationFrame(requestID);
+      }
+      window.removeEventListener("resize", onWindowResize);
+      if (renderer && container) {
+        container.removeChild(renderer.domElement);
+      }
+      // その他必要に応じて片付け処理
+    }
+
+    document.addEventListener("DOMContentLoaded", init);
+
+    function init() {
+      container = document.getElementById("bouncing-ball-container");
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x808080);
+
+      camera = new THREE.PerspectiveCamera(
+        44,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000,
+      );
+
+      renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      container.appendChild(renderer.domElement);
+
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+      scene.add(ambientLight);
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+      directionalLight.position.set(5, 10, 7.5);
+      scene.add(directionalLight);
+
+      // 物理演算ワールド (CANNON)
+      world = new CANNON.World();
+      world.gravity.set(0, -9.82, 0);
+
+      // マテリアル
+      defaultMaterial = new CANNON.Material("default");
+      const defaultContactMaterial = new CANNON.ContactMaterial(
+        defaultMaterial,
+        defaultMaterial,
+        {
+          friction: 0.1,
+          restitution: 1,
+        },
+      );
+      world.defaultContactMaterial = defaultContactMaterial;
+
+      createBoxAndBall();
+      animate();
+
+      // リサイズ
+      window.addEventListener("resize", onWindowResize);
+    }
+
+    function createBoxAndBall() {
+      // 既存オブジェクトをクリア
+      walls.forEach(function (wall) {
+        scene.remove(wall.mesh);
+      });
+      walls = [];
+      if (sphereMesh) {
+        scene.remove(sphereMesh);
+      }
+      world.bodies = [];
+
+      // 箱のサイズを画面比率から決定
+      const aspect = window.innerWidth / window.innerHeight;
+      const boxHeight = 7;
+      const boxWidth = boxHeight * aspect;
+      const boxDepth = 3;
+
+      // カメラ
+      camera.position.set(0, 0, boxDepth * 4);
+      camera.lookAt(0, 0, 0);
+      camera.updateProjectionMatrix();
+
+      // グリッドテクスチャ
+      const gridTexture = new THREE.CanvasTexture(generateGridTexture());
+      gridTexture.wrapS = gridTexture.wrapT = THREE.RepeatWrapping;
+      gridTexture.minFilter = THREE.LinearFilter;
+      gridTexture.magFilter = THREE.LinearFilter;
+
+      const wallMaterial = new THREE.MeshBasicMaterial({
+        map: gridTexture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        opacity: 0.5,
+      });
+
+      const wallInfos = [
+        {
+          name: "bottom",
+          position: new CANNON.Vec3(0, -boxHeight / 2, 0),
+          rotation: new CANNON.Vec3(-Math.PI / 2, 0, 0),
+          size: [boxWidth, boxDepth],
+          visible: true,
+        },
+        {
+          name: "top",
+          position: new CANNON.Vec3(0, boxHeight / 2, 0),
+          rotation: new CANNON.Vec3(Math.PI / 2, 0, 0),
+          size: [boxWidth, boxDepth],
+          visible: false,
+        },
+        {
+          name: "left",
+          position: new CANNON.Vec3(-boxWidth / 2, 0, 0),
+          rotation: new CANNON.Vec3(0, Math.PI / 2, 0),
+          size: [boxHeight, boxDepth],
+          visible: false,
+        },
+        {
+          name: "right",
+          position: new CANNON.Vec3(boxWidth / 2, 0, 0),
+          rotation: new CANNON.Vec3(0, -Math.PI / 2, 0),
+          size: [boxHeight, boxDepth],
+          visible: false,
+        },
+        {
+          name: "back",
+          position: new CANNON.Vec3(0, 0, -boxDepth / 2),
+          rotation: new CANNON.Vec3(0, 0, 0),
+          size: [boxWidth, boxHeight],
+          visible: true,
+        },
+      ];
+
+      wallInfos.forEach(function (info) {
+        // Cannon(UMD) Plane
+        const wallShape = new CANNON.Plane();
+        const wallBody = new CANNON.Body({
+          mass: 0,
+          shape: wallShape,
+          position: info.position,
+          material: defaultMaterial,
+        });
+        wallBody.quaternion.setFromEuler(
+          info.rotation.x,
+          info.rotation.y,
+          info.rotation.z,
+        );
+        wallBody.name = info.name;
+        world.addBody(wallBody);
+
+        // Three.js Plane
+        const wallGeometry = new THREE.PlaneGeometry(
+          info.size[0],
+          info.size[1],
+        );
+        const meshMat = wallMaterial.clone();
+        const texture = meshMat.map;
+        if (texture) {
+          texture.repeat.set(
+            (info.size[0] / boxHeight) * 5,
+            (info.size[1] / boxHeight) * 5,
+          );
+        }
+        const wallMesh = new THREE.Mesh(wallGeometry, meshMat);
+        wallMesh.position.copy(info.position);
+        wallMesh.rotation.set(
+          info.rotation.x,
+          info.rotation.y,
+          info.rotation.z,
+        );
+        wallMesh.visible = info.visible;
+        scene.add(wallMesh);
+
+        walls.push({ body: wallBody, mesh: wallMesh, name: info.name });
+      });
+
+      // 球体
+      const radius = boxHeight / 5;
+      const sphereGeometry = new THREE.SphereGeometry(radius, 32, 32);
+
+      // チェック柄テクスチャ
+      const checkeredTexture = new THREE.CanvasTexture(
+        generateCheckeredTexture(),
+      );
+      checkeredTexture.wrapS = checkeredTexture.wrapT = THREE.RepeatWrapping;
+      checkeredTexture.minFilter = THREE.LinearFilter;
+      checkeredTexture.magFilter = THREE.LinearFilter;
+      checkeredTexture.repeat.set(4, 2);
+
+      const sphereMat = new THREE.MeshPhongMaterial({ map: checkeredTexture });
+      sphereMesh = new THREE.Mesh(sphereGeometry, sphereMat);
+      scene.add(sphereMesh);
+
+      // Cannon Body
+      const sphereShape = new CANNON.Sphere(radius);
+      sphereBody = new CANNON.Body({
+        mass: 0.6,
+        shape: sphereShape,
+        position: new CANNON.Vec3(0, 0, 0),
+        material: defaultMaterial,
+      });
+      world.addBody(sphereBody);
+
+      // 初速を少しランダムに
+      sphereBody.velocity.set(
+        (Math.random() - 0.5) * 10,
+        (Math.random() - 0.5) * 10,
+        0,
+      );
+
+      // 衝突イベント
+      sphereBody.addEventListener("collide", handleCollision);
+    }
+
+    function handleCollision(event) {
+      const collidedBody = event.body;
+      const wallName = collidedBody.name;
+
+      if (
+        wallName === "left" ||
+        wallName === "right" ||
+        wallName === "top" ||
+        wallName === "bottom"
+      ) {
+        const forceMagnitude = 30;
+        const force = new CANNON.Vec3(0, 0, 0);
+
+        if (wallName === "left" || wallName === "right") {
+          force.x = wallName === "left" ? forceMagnitude : -forceMagnitude;
+          force.y = (Math.random() - 0.5) * 30;
+        } else {
+          force.y = wallName === "bottom" ? forceMagnitude : -forceMagnitude;
+          force.x = (Math.random() - 0.5) * 30;
+        }
+        sphereBody.applyForce(force, sphereBody.position);
+      }
+    }
+
+    function generateCheckeredTexture() {
+      const size = 64;
+      const canvas = document.createElement("canvas");
+      canvas.width = size * 2;
+      canvas.height = size * 2;
+      const ctx = canvas.getContext("2d");
+
+      const colors = ["#ff0000", "#ffffff"];
+      const numSquares = 4;
+      const squareSize = canvas.width / numSquares;
+
+      let yy = 0;
+      while (yy < numSquares) {
+        let xx = 0;
+        while (xx < numSquares) {
+          const color = colors[(xx + yy) % 2];
+          ctx.fillStyle = color;
+          ctx.fillRect(
+            xx * squareSize,
+            yy * squareSize,
+            squareSize,
+            squareSize,
+          );
+          xx++;
+        }
+        yy++;
+      }
+      return canvas;
+    }
+
+    function generateGridTexture() {
+      const size = 64;
+      const canvas = document.createElement("canvas");
+      canvas.width = size * 2;
+      canvas.height = size * 2;
+      const ctx = canvas.getContext("2d");
+
+      ctx.fillStyle = "rgba(0, 0, 0, 0)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.strokeStyle = "#8000f0";
+      ctx.lineWidth = 4;
+
+      const numLines = 3;
+      const spacing = canvas.width / numLines;
+
+      let i = 0;
+      while (i <= canvas.width) {
+        ctx.beginPath();
+        ctx.moveTo(i, 0);
+        ctx.lineTo(i, canvas.height);
+        ctx.stroke();
+        i += spacing;
+      }
+
+      i = 0;
+      while (i <= canvas.height) {
+        ctx.beginPath();
+        ctx.moveTo(0, i);
+        ctx.lineTo(canvas.width, i);
+        ctx.stroke();
+        i += spacing;
+      }
+      return canvas;
+    }
+
+    function onWindowResize() {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+
+      // 壁とボールを再生成
+      createBoxAndBall();
+    }
+
+    function animate() {
+      requestID = requestAnimationFrame(animate);
+      world.step(1 / 60);
+
+      sphereMesh.position.copy(sphereBody.position);
+      sphereMesh.quaternion.copy(sphereBody.quaternion);
+
+      renderer.render(scene, camera);
+    }
+  })();
+</script>
+
+<style>
+  /* 背景用コンテナをヒーローセクションの背面に回すためにabsoluteを指定 */
+  #bouncing-ball-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+  }
+</style>

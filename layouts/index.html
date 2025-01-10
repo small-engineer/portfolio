@@ -1,55 +1,110 @@
-{{ define "main" }}
-  <!-- Hero Section -->
-  <section
-    class="flex items-center justify-center min-h-screen hero bg-base-100 text-primary-content">
-    <div class="px-4 text-center">
-      <h1 class="text-6xl font-bold border-black">Hello Tokyo</h1>
-      <p class="mt-6 text-lg border-black">
-        Small-engineer-net from Wakamiya Yuma
-      </p>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {{- with .Title -}}
+      <meta property="og:title" content="{{ . }}" />
+    {{- end -}}
+    <meta
+      property="og:description"
+      content="{{ with .Description }}
+        {{ . }}
+      {{ else }}
+        {{ .Site.Params.defaultDescription }}
+      {{ end }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ .Permalink }}" />
+    <meta
+      property="og:image"
+      content="{{ with .Params.image }}
+        {{ . | absURL }}
+      {{ else }}
+        {{ .Site.Params.defaultImage | absURL }}
+      {{ end }}" />
+    <meta property="og:site_name" content="{{ .Site.Title }}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>{{ .Title }}</title>
+    <link href="/css/style.css" rel="stylesheet" />
+    <script>
+      const userPrefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      ).matches;
+      document.documentElement.setAttribute(
+        "data-theme",
+        userPrefersDark ? "business" : "corporate",
+      );
+    </script>
+  </head>
+  <body class="">
+    <!-- ヘッダー -->
+    {{ partial "header.html" . }}
 
-      <a
-        href="#Section"
-        id="scroll-btn"
-        class="p-3 mt-10 border-none rounded-none text-neutral-700 btn btn-neutral bg-primary shadow-classic hover:bg-primary-dark hover:shadow-classic-dark">
-        私について
-      </a>
-    </div>
-  </section>
+    <!-- フルスクリーンオーバーレイ -->
+    {{ partial "fullscreen.html" . }}
 
-  <!-- About Section -->
-  <section
-    id="Section"
-    class="relative py-20 text-gray-900 border-2 border-black bg-primary about-section">
-    <div
-      class="absolute top-0 left-0 right-0 flex items-center px-4 py-2 bg-primary shadow-classic">
-      <span class="flex items-center justify-center w-5 h-5 shadow-classic">
-        <div class="w-3 h-3 border-2 border-black">
-          <div class="w-2 h-1 bg-black"></div>
+    <!-- メインコンテンツ -->
+    <main class="px-10">
+      <!-- Hero Section -->
+      <section
+        class="relative flex items-center justify-center min-h-screen hero text-primary-content">
+        {{ partial "bouncing-ball.html" . }}
+        <div class="px-4 text-center">
+          <h1 class="text-6xl font-bold border-black">Hello Tokyo</h1>
+          <p class="mt-6 text-lg border-black">
+            Small-engineer-net from Wakamiya Yuma
+          </p>
+          <a
+            href="#Section"
+            id="scroll-btn"
+            class="p-3 mt-10 border-none rounded-none text-neutral-700 btn btn-neutral bg-primary shadow-classic hover:bg-primary-dark hover:shadow-classic-dark">
+            私について
+          </a>
         </div>
-      </span>
-      <p class="mx-auto text-base">About Me</p>
-    </div>
-    <div class="container mx-auto mt-10 text-center">
-      <h2 class="text-4xl font-bold border-black">About Me</h2>
-      <p class="max-w-3xl mx-auto mt-4 text-lg border-black">
-        その日暮らしの学生です
-      </p>
-      <div class="flex justify-center mt-10 space-x-4">
-        <img
-          src="/images/profile.webp"
-          alt="My photo"
-          class="w-20 h-20 border-black rounded-full shadow-lg" />
-      </div>
-      <div class="mt-10">
-        <a
-          href="/about"
-          class="px-4 py-2 text-black bg-primary prev-button shadow-classic hover:shadow-classic-dark">
-          もっと見る
-        </a>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <script src="/js/home.js" defer></script>
-{{ end }}
+      <!-- About Section -->
+      <section
+        id="Section"
+        class="relative py-20 mb-10 text-gray-900 border-2 border-black bg-primary about-section">
+        <div
+          class="absolute top-0 left-0 right-0 flex items-center px-4 py-2 bg-primary shadow-classic">
+          <span class="flex items-center justify-center w-5 h-5 shadow-classic">
+            <div class="w-3 h-3 border-2 border-black">
+              <div class="w-2 h-1 bg-black"></div>
+            </div>
+          </span>
+          <p class="mx-auto text-base">About Me</p>
+        </div>
+        <div class="container mx-auto mt-10 text-center">
+          <h2 class="text-4xl font-bold border-black">About Me</h2>
+          <p class="max-w-3xl mx-auto mt-4 text-lg border-black">
+            その日暮らしの学生です
+          </p>
+          <div class="flex justify-center mt-10 space-x-4">
+            <img
+              src="/images/profile.webp"
+              alt="My photo"
+              class="w-20 h-20 border-black rounded-full shadow-lg" />
+          </div>
+          <div class="mt-10">
+            <a
+              href="/about"
+              class="px-4 py-2 text-black bg-primary prev-button shadow-classic hover:shadow-classic-dark">
+              もっと見る
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <script src="/js/home.js" defer></script>
+    </main>
+
+    <!-- フッター -->
+    <footer
+      class="p-5 text-center bg-primary text-primary-content shadow-classic">
+      <p>© 2004 - 2024 Small-engineer-net All Rights Reserved.</p>
+    </footer>
+  </body>
+  <script src="/js/index.js" defer></script>
+</html>

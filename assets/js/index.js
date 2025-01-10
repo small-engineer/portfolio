@@ -9,12 +9,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const referrer = document.referrer;
   const isExternalReferrer =
-    referrer && !referrer.includes(window.location.hostname);
+    !localStorage.getItem("visited") &&
+    (referrer === "" || !referrer.includes(window.location.hostname));
 
   const debugMode = false;
 
-  if (debugMode || (!localStorage.getItem("visited") && isExternalReferrer)) {
-    overlay.classList.remove("hidden");
+  if (debugMode || isExternalReferrer) {
+    overlay.style.display = "flex";
+    overlay.style.opacity = 1;
 
     gsap.to(loadingBar, {
       duration: 1.5,
@@ -32,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       },
     });
+
     if (!debugMode) {
       localStorage.setItem("visited", "true");
     }
