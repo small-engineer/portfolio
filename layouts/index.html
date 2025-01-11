@@ -37,22 +37,35 @@
     </script>
   </head>
   <body class="">
+    <!-- 背景アニメーション -->
+    {{ partial "bouncing-ball.html" . }}
+    <div
+      class="fixed top-0 left-0 w-full h-full bg-black pointer-events-none bg-opacity-30"></div>
+
     <!-- ヘッダー -->
     {{ partial "header.html" . }}
+
 
     <!-- フルスクリーンオーバーレイ -->
     {{ partial "fullscreen.html" . }}
 
+
     <!-- メインコンテンツ -->
-    <main class="px-10">
+    <main class="px-3">
       <!-- Hero Section -->
       <section
         class="relative flex items-center justify-center min-h-screen hero text-primary-content">
-        {{ partial "bouncing-ball.html" . }}
-        <div class="px-4 text-center">
-          <h1 class="text-6xl font-bold border-black">Hello Tokyo</h1>
-          <p class="mt-6 text-lg border-black">
-            Small-engineer-net from Wakamiya Yuma
+        <!-- コンテンツ -->
+        <div class="relative z-10 px-4 text-center">
+          <h1
+            id="typing-text"
+            class="text-4xl font-bold text-white border-black lg:text-6xl"></h1>
+          <p class="mt-6 text-lg text-white border-black">
+            Small-engineer-net
+            <wbr />
+            from
+            <wbr />
+            Wakamiya Yuma
           </p>
           <a
             href="#Section"
@@ -62,11 +75,12 @@
           </a>
         </div>
       </section>
+      <script src="/js/typing-animation.js"></script>
 
       <!-- About Section -->
       <section
         id="Section"
-        class="relative py-20 mb-10 text-gray-900 border-2 border-black bg-primary about-section">
+        class="relative py-20 mx-4 mb-10 text-gray-900 border-2 border-black bg-primary about-section">
         <div
           class="absolute top-0 left-0 right-0 flex items-center px-4 py-2 bg-primary shadow-classic">
           <span class="flex items-center justify-center w-5 h-5 shadow-classic">
@@ -99,12 +113,10 @@
 
       <script src="/js/home.js" defer></script>
     </main>
-
-    <!-- フッター -->
-    <footer
-      class="p-5 text-center bg-primary text-primary-content shadow-classic">
-      <p>© 2004 - 2024 Small-engineer-net All Rights Reserved.</p>
-    </footer>
   </body>
+  <!-- フッター -->
+  <footer class="relative z-30 p-5 text-center bg-primary shadow-classic">
+    <img src="/images/banner.webp" alt="Footer Image" class="mx-auto" />
+  </footer>
   <script src="/js/index.js" defer></script>
 </html>

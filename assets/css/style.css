@@ -19,7 +19,7 @@
 @font-face {
   font-family: "KH-Dot";
   src: url("/fonts/KH-Dot-Hibiya-24.ttf") format("truetype");
-  font-weight: 400; /* Regular */
+  font-weight: 400;
   font-style: normal;
 }
 
@@ -29,8 +29,42 @@
   font-weight: 700; /* Bold */
   font-style: bold;
 }
-
 body {
   font-family: "KH-Dot", "Noto Sans JP", sans-serif;
   font-weight: 400;
+}
+.typed-cursor {
+  display: inline-block;
+  vertical-align: text-bottom;
+  font-weight: bold;
+  font-size: inherit;
+  color: inherit;
+  animation: blink 0.7s step-end infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+a {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+@layer utilities {
+  .custom-break {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
 }

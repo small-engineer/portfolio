@@ -12,6 +12,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.16",
     "autoprefixer": "^10.4.20",
     "daisyui": "^4.12.22",
     "gsap": "^3.12.5",

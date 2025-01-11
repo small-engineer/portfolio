@@ -1,5 +1,5 @@
 {{ define "main" }}
-  <article class="mx-auto mt-20 prose lg:prose-xl">
+  <article class="mx-auto mt-20">
     {{ $sections := split .Content "<hr>" }}
     {{ range $index, $section := $sections }}
       {{ $html := $section | safeHTML }}
@@ -28,7 +28,7 @@
             </p>
           </div>
           <div
-            class="container h-auto p-4 mx-auto mt-20 bg-white shadow-classic-in min-h-[50vh]">
+            class="container h-auto p-4 mx-auto mt-20 bg-white prose-default lg:prose-xl shadow-classic-in min-h-[50vh]">
             {{ $section | safeHTML }}
           </div>
           <div

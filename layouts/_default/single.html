@@ -1,8 +1,8 @@
 {{ define "main" }}
-  <article class="mx-auto mt-20 prose lg:prose-xl">
+  <article class="mx-auto mt-20">
     <section
       id="Section"
-      class="min-h-[73vh] relative py-20 text-gray-900 border-2 border-black bg-primary about-section">
+      class="min-h-[73vh] relative pt-12 pb-4 px-4 text-gray-900 border-2 border-black bg-primary about-section">
       <div
         class="absolute top-0 left-0 right-0 flex items-center px-4 py-2 bg-black shadow-classic">
         <span
@@ -15,13 +15,14 @@
           {{ index (split .Title " | ") 0 }}
         </p>
       </div>
-      <div class="container p-4 mx-auto mt-5 bg-white shadow-classic-in">
+      <div
+        class="container p-4 mx-auto mt-2 prose-lg text-black bg-white prose-default shadow-classic-in">
         <h1 class="mb-4 text-4xl font-bold">
           {{ index (split .Title " | ") 0 }}
         </h1>
 
         <!-- カテゴリ表示 -->
-        <p class="mb-2 text-sm text-gray-500">
+        <p class="mb-2 text-sm text-gray-600">
           <strong>カテゴリ:</strong>
           {{ with .Params.categories }}{{ delimit . ", " }}{{ else }}-{{ end }}
         </p>
@@ -32,7 +33,7 @@
         </p>
 
         <!-- コンテンツ -->
-        <div class="content">{{ .Content }}</div>
+        <div class="prose-content">{{ .Content }}</div>
       </div>
     </section>
   </article>

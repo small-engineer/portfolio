@@ -1,5 +1,5 @@
 {{ define "main" }}
-  <article class="mx-auto mt-20 prose lg:prose-xl">
+  <article class="mx-auto mt-20">
     <div class="flex flex-wrap gap-3 -mx-4">
       {{ $sections := split .Content "<hr>" }}
       {{ range $index, $section := $sections }}
@@ -37,11 +37,12 @@
                 <div class="w-2 h-1 bg-black"></div>
               </div>
             </span>
-            <p class="mx-auto text-base text-black ">
+            <p class="mx-auto text-base text-black">
               {{ $heading }}
             </p>
           </div>
-          <div class="container p-4 mx-auto mt-5 bg-white shadow-classic-in">
+          <div
+            class="container p-4 mx-auto mt-5 bg-white shadow-classic-in prose-default lg:prose-xl">
             {{ $cleanHtml | safeHTML }}
           </div>
         </section>

@@ -1,5 +1,8 @@
+const { Font } = require("three/examples/jsm/Addons.js");
+const { color } = require("three/tsl");
+
 module.exports = {
-  content: ["./layouts/**/*.html", "./content/**/*.md", "./assets/js/**/*.js"],
+  content: ["./layouts/**/*.html", "./content/**/*.md", "./src/**/*.js"],
   daisyui: {
     themes: [
       {
@@ -15,6 +18,57 @@ module.exports = {
   },
   theme: {
     extend: {
+      typography: ({ theme }) => ({
+        default: {
+          css: {
+            "--tw-prose-body": theme("colors.gray.900"),
+            "--tw-prose-headings": theme("colors.black"),
+            "--tw-prose-lead": theme("colors.gray.800"),
+            "--tw-prose-links": theme("colors.blue.700"),
+            "--tw-prose-bold": theme("colors.gray.900"),
+            "--tw-prose-counters": theme("colors.gray.600"),
+            "--tw-prose-bullets": theme("colors.gray.700"),
+            "--tw-prose-hr": theme("colors.gray.300"),
+            "--tw-prose-quotes": theme("colors.gray.900"),
+            "--tw-prose-quote-borders": theme("colors.gray.300"),
+            "--tw-prose-captions": theme("colors.gray.700"),
+            "--tw-prose-code": theme("colors.gray.800"),
+            "--tw-prose-pre-code": theme("colors.gray.100"),
+            "--tw-prose-pre-bg": theme("colors.gray.900"),
+            "--tw-prose-th-borders": theme("colors.gray.300"),
+            "--tw-prose-td-borders": theme("colors.gray.200"),
+            "--tw-prose-invert-body": theme("colors.gray.100"),
+            "--tw-prose-invert-headings": theme("colors.white"),
+            "--tw-prose-invert-lead": theme("colors.gray.400"),
+            "--tw-prose-invert-links": theme("colors.blue.300"),
+            "--tw-prose-invert-bold": theme("colors.gray.100"),
+            "--tw-prose-invert-counters": theme("colors.gray.400"),
+            "--tw-prose-invert-bullets": theme("colors.gray.600"),
+            "--tw-prose-invert-hr": theme("colors.gray.700"),
+            "--tw-prose-invert-quotes": theme("colors.gray.100"),
+            "--tw-prose-invert-quote-borders": theme("colors.gray.700"),
+            "--tw-prose-invert-captions": theme("colors.gray.400"),
+            "--tw-prose-invert-code": theme("colors.gray.100"),
+            "--tw-prose-invert-pre-code": theme("colors.gray.300"),
+            "--tw-prose-invert-pre-bg": "rgb(0 0 0 / 50%)",
+            "--tw-prose-invert-th-borders": theme("colors.gray.600"),
+            "--tw-prose-invert-td-borders": theme("colors.gray.700"),
+            maxWidth: "150ch",
+            "b, strong": {
+              fontWeight: "normal",
+              color: theme("colors.base-100"),
+            },
+            pre: {
+              borderRadius: "0",
+              overflowX: "auto",
+              padding: theme("spacing.4"),
+              backgroundColor: theme("colors.gray.900"),
+              color: theme("colors.gray.100"),
+              border: `1px solid ${theme("colors.gray.300")}`,
+            },
+          },
+        },
+      }),
       colors: {
         primary: "#AAAAAA",
         "primary-dark": "#999999",
@@ -63,5 +117,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"), require("@tailwindcss/typography")],
 };
