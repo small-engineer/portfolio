@@ -1,7 +1,8 @@
 (() => {
   // assets/js/typing-animation.js
-  document.addEventListener("DOMContentLoaded", function() {
-    const text = "\u67AF\u308C\u305F/\u6280\u8853/\u3068/\u5F79\u7ACB\u305F\u306A\u3044/\u8AF8\u3005\u306E/\u5099\u5FD8\u9332";
+  document.addEventListener("DOMContentLoaded", function () {
+    const text =
+      "\u67AF\u308C\u305F/\u6280\u8853/\u3068/\u5F79\u7ACB\u305F\u306A\u3044/\u8AF8\u3005\u306E/\u5099\u5FD8\u9332";
     const typingElement = document.getElementById("typing-text");
     let index = 0;
     const cursor = document.createElement("span");
